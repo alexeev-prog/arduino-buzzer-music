@@ -27,7 +27,7 @@ graph TD
     J --> L[Generate Tone on Piezo]
     K --> M[Delay for Pause Duration]
     L --> D
-    F -->|No| N[Disable Tone noTone()]
+    F -->|No| N[Disable Tone]
     N --> D
 ```
 
