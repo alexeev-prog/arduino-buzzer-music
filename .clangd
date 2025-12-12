@@ -1,0 +1,10 @@
+CompileFlags:
+  Add:
+    # - "-I=[folder]"         # old answer
+    - "-I./include/"
+    - "-I/include/"
+    - "-I./source/"
+    - "-I/source/"
+    - "-I../../source/"
+  Remove: [-arch]
+  CompilationDatabase: build/dev
