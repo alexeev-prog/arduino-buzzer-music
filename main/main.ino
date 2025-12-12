@@ -37,6 +37,23 @@ uint64_t romu_duo_range(uint64_t min, uint64_t max) {
     return min + (random_value % range);
 }
 
+float romu_duo_float() {
+    uint32_t bits = (uint32_t)(romu_duo() >> 40);
+    bits = 0x3F800000 | (bits & 0x007FFFFF);
+    float result;
+    memcpy(&result, &bits, sizeof(float));
+    return result - 1.0f;
+}
+
+float romu_duo_float_range(float min, float max) {
+    float t;
+    uint32_t bits = (uint32_t)(romu_duo() >> 40);
+    bits = 0x3F800000 | (bits & 0x007FFFFF);
+    memcpy(&t, &bits, sizeof(float));
+    t = t - 1.0f;
+    return min + t * (max - min);
+}
+
 int melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
 
 int noteDurations[] = {4, 7, 7, 4, 4, 4, 4, 4};
@@ -53,7 +70,7 @@ void loop() {
         int thisNote = romu_duo_range(0, 7);
         int noteDuration = 1000 / noteDurations[thisNote];
         tone(BZR_PIN, melody[thisNote], noteDuration);
-        int pauseBetweenNotes = noteDuration * 1.10;
+        int pauseBetweenNotes = noteDuration * romu_duo_float_range(1.1, 1.9);
         delay(pauseBetweenNotes);
     } else {
         noTone(BZR_PIN);

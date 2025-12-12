@@ -7,6 +7,7 @@ in
 pkgs.mkShell {
   buildInputs = with pkgs; [
     arduino-cli
+    fritzing
     arduino-core
     avrdude
     arduino
